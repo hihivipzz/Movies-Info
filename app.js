@@ -1,7 +1,9 @@
-const express= require('express')
+const express= require('express');
+const importJSON = require('./config/importJSON');
+const inportJSON = require('./config/importJSON')
 
 const app = express();
-const port = 3000;
+const port = 20480;
 
 //cấu hình handlebars
 require('./config/hbs')(app);
@@ -13,6 +15,8 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-app.listen(port, () => {
+app.listen(port, async  () => {
+    await importJSON.importCast();
+    importJSON.importMovie();
     console.log('App listening on port ',port);
 });
