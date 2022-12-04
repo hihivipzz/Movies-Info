@@ -1,3 +1,4 @@
+<div class="fs-1 p-4 fw-bold">Search cast result</div>
 <div class="row">
     <table class="table ">
         <thead>
@@ -10,10 +11,32 @@
             {{#each casts}}
             <tr class="text-center">
                 <td><a href="/cast/{{id}}">{{name}}</a></td>
-                <td class="text-center"><image src={{image}} class="mx-auto" style="height: 150px;"></image></td>
+                <td class="text-center"><image src="{{image}}" class="mx-auto" style="height: 150px;"></image></td>
             </tr>
             {{/each}}
         </tbody>
     </table>
 
 </div>
+<div class="row justify-content-center">
+    <div class="col-auto">
+        <ul class="pagination">
+        </ul>
+    </div>
+</div>
+
+<script>
+
+    for (let i = 1; i <= {{maxPage}};i++){
+        var url = window.location.href;
+        const pos = url.indexOf("&page=")
+        console.log(pos)
+        if(pos != -1){
+            url = url.substring(0,pos)
+        }
+        $('.pagination').append(`<li class="page-item" id="page${i}"><a class="page-link" href="${url}&page=${i}">${i}</a></li>`)
+    }
+
+        var page = {{ page }}
+        $(`#page${page}`).addClass('active')
+</script>

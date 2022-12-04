@@ -1,4 +1,4 @@
-<div class="fs-1 p-4 fw-bold">Top Rating Movies</div>
+<div class="fs-1 p-4 fw-bold">Search movies result</div>
 <div class="row">
     {{#each movies}}
     <a class="col-4 pb-4 text-decoration-none" href="/movie/{{id}}">
@@ -13,3 +13,26 @@
     </a>
     {{/each}}
 </div>
+<div class="row justify-content-center">
+    <div class="col-auto">
+        <ul class="pagination">
+        </ul>
+    </div>
+</div>
+
+
+<script>
+
+    for (let i = 1; i <= {{maxPage}};i++){
+        var url = window.location.href;
+        const pos = url.indexOf("&page=")
+        console.log(pos)
+        if(pos != -1){
+            url = url.substring(0,pos)
+        }
+        $('.pagination').append(`<li class="page-item" id="page${i}"><a class="page-link" href="${url}&page=${i}">${i}</a></li>`)
+    }
+
+        var page = {{ page }}
+        $(`#page${page}`).addClass('active')
+</script>

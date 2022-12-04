@@ -28,6 +28,15 @@ app.use('/cast',require('./routers/cast.r'))
 app.get('/',(req,res,next)=>{
    res.redirect('/home')
 })
+//xu ly loi
+app.use((err,req,res,next)=>{
+    const statusCode = err.statusCode | 500;
+    const message = err.message;
+    res.render('error',{
+        statusCode,
+        message
+    })
+})
 
 app.listen(port, async  () => {
     await importJSON.importCast();

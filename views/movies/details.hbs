@@ -24,7 +24,11 @@
             </div>
         </div>
         <div class="mt-4">
-            <span class="fw-bold">Summary</span>:<div>{{movie.synopses}}</div>
+            <div><span class="fw-bold">Summary</span>:</div>
+
+            <div id="#summary">
+                {{movie.synopses}}
+            </div>
         </div>
 
     </div>
@@ -50,7 +54,7 @@
 </table>
 <div class="fw-bold fs-1">Reviews</div>
 <div class="row review">
-    
+
 </div>
 <div class="row justify-content-center">
     <div class="col-auto">
@@ -60,14 +64,13 @@
 </div>
 <!--Ajax pagination-->
 <script>
-{{#if isLogin}}
     for (let i = 1; i <= {{ totalPage }}; i++) {
         $('.pagination').append(`<li class="page-item" id="page${i}"><a class="page-link" ">${i}</a></li>`)
 
         $(`#page${i}`).click((e) => {
             e.preventDefault();
             fetch(`/movie/review/?id={{movie.id}}&page=${i}`).then((response) => response.json()).then((data) => {
-                 $('.review').empty()
+                $('.review').empty()
                 data.forEach(review => {
                     var txt = `<div class="mb-2 p-5 pt-2" >
                     <div class="fw-bold">Author: ${review.author}</div>
@@ -76,8 +79,8 @@
                     <div> </div>
                     </div>
                     <hr>`
-                    
-                   
+
+
                     $('.review').append(txt)
                 })
             })
@@ -85,75 +88,100 @@
             $(`#page${i}`).addClass('active')
         })
     }
+   
+   const init = ()=>{
+     fetch(`/movie/review/?id={{movie.id}}&page=${1}`).then((response) => response.json()).then((data) => {
+        $('.review').empty()
+        data.forEach(review => {
+            var txt = `<div class="mb-2 p-5 pt-2" >
+                    <div class="fw-bold">Author: ${review.author}</div>
+                    <div class="fw-bold">Rating: ${review.authorRating} </div>
+                    <div class="fw-italic border border-white p-2">${review.reviewText}</div>
+                    <div> </div>
+                    </div>
+                    <hr>`
+
+
+            $('.review').append(txt)
+        })
+    })
+    $(".pagination>li.active").removeClass("active");
+            $(`#page${1}`).addClass('active')
+   }
+
+   init();
+
+
 </script>
 
 <!--favourite button-->
 <script>
-    const add = ()=>{
+    {{#if isLogin}}
+    const add = () => {
         $.ajax({
-            type:"POST",
+            type: "POST",
             url: "/user/favourite",
-            data:{
-                "id" : "{{movie.id}}"
+            data: {
+                "id": "{{movie.id}}"
             },
-            success: function(result){
+            success: function (result) {
                 alert('add sucess')
                 $("#favourite").removeClass("btn-success")
-                $( "#favourite" ).addClass( "btn-danger" );
+                $("#favourite").addClass("btn-danger");
                 $('#favourite').html("Remove from favourit list")
-            },error: function(e){
+            }, error: function (e) {
                 alert(e)
             }
         })
     }
 
-    const remove = ()=>{
+    const remove = () => {
         $.ajax({
-            type:"DELETE",
+            type: "DELETE",
             url: "/user/favourite",
-            data:{
-                "id" : "{{movie.id}}"
+            data: {
+                "id": "{{movie.id}}"
             },
-            success: function(result){
+            success: function (result) {
                 alert('Remove sucess')
                 $("#favourite").removeClass("btn-danger")
-                 $( "#favourite" ).addClass( "btn-success" );
+                $("#favourite").addClass("btn-success");
                 $('#favourite').html("Add to favourite")
-            },error: function(e){
+            }, error: function (e) {
                 alert(e)
             }
         })
     }
 
-    $("#favourite").click((e) =>{
+    $("#favourite").click((e) => {
         e.preventDefault();
-        $.get('/user/favourite/check/?mId={{movie.id}}',(data)=>{
+        $.get('/user/favourite/check/?mId={{movie.id}}', (data) => {
             console.log(data)
-            if(data==true){
+            if (data == true) {
                 remove();
-            }else{
+            } else {
                 add();
             }
         })
     })
 
-    const init = ()=>{
-        $.get('/user/favourite/check/?mId={{movie.id}}',(data)=>{
+    const init2 = () => {
+        $.get('/user/favourite/check/?mId={{movie.id}}', (data) => {
             console.log(data)
-            if(data==true){
-                $( "#favourite" ).addClass( "btn-danger" );
+            if (data == true) {
+                $("#favourite").addClass("btn-danger");
                 $('#favourite').html("Remove from favourit list")
-            }else{
-                $( "#favourite" ).addClass( "btn-success" );
+            } else {
+                $("#favourite").addClass("btn-success");
                 $('#favourite').html("Add to favourite")
             }
         })
     }
 
-    init();
-{{else}}
-    $("#favourite").click((e)=>{
+    init2();
+    {{else}}
+    $("#favourite").click((e) => {
         window.location.href = "/user/login"
     })
-{{/if}}
+    {{/if}}
 </script>

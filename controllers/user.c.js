@@ -70,7 +70,7 @@ exports.postLogout = async(req,res,next) =>{
 exports.getFavourite = async(req,res,next)=>{
     try{
         const movies = await userM.readFavouriteMovie(req.session.uid)
-        console.log(movies)
+        
         res.render('user/favourite',{
             isLogin: req.session.uid != undefined,
             movies
