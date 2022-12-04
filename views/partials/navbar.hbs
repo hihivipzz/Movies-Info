@@ -3,13 +3,17 @@
     <a class="navbar-brand " href="/">Home</a>
 
     <form class="d-flex" role="search" method="get" action="/search">
-      <input class="form-control me-2" type="search" placeholder="{{str}}" aria-label="Search" name="str">
+      <select class="form-control w-auto border border-primary" name="type">
+        <option value="name">Name</option>
+        <option value="genre">Genre</option>
+      </select>
+      <input class="form-control me-2" type="search" placeholder="{{str}}" aria-label="Search" name="str" required>
       <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
 
     <ul class="navbar-nav d-flex flex-row justify-content-center">
       {{#if isLogin}}
-      <li class = "nav-item p-2">
+      <li class="nav-item p-2">
         <a class="nav-link fw-bold" href="">My Favourite Movies</a>
       </li>
 

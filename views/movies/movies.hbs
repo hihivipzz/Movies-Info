@@ -1,0 +1,15 @@
+<div class="fs-1 p-4 fw-bold">Top Rating Movies</div>
+<div class="row">
+    {{#each movies}}
+    <a class="col-4 pb-4 text-decoration-none" href="/detail/?id={{id}}">
+        <div class="card h-100">
+            <img src="{{img}}" class="card-img-top" alt="{{id}}">
+            <div class="card-body">
+                <h5 class="card-title"> {{title}}</h5>
+                <div class="text-center">Year: {{year}}</div>
+                <div class="text-center">Rating: {{rating}}</div>
+            </div>
+        </div>
+    </a>
+    {{/each}}
+</div>

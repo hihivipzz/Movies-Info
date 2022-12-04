@@ -19,6 +19,8 @@ app.use('/user',require('./routers/user.r'))
 
 app.use('/home',require('./routers/home.r'))
 
+app.use('/search',require('./routers/search.r'))
+
 app.get('/',(req,res,next)=>{
    res.redirect('/home')
 })
