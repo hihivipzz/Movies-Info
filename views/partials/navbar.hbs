@@ -9,10 +9,13 @@
 
     <ul class="navbar-nav d-flex flex-row justify-content-center">
       {{#if isLogin}}
+      <li class = "nav-item p-2">
+        <a class="nav-link fw-bold" href="">My Favourite Movies</a>
+      </li>
 
       <li class="nav-item p-2">
         <form method="post" action="/user/logout" class="inline">
-          <button type="submit" class="nav-link border-0 bg-transparent">Đăng xuất</a>
+          <button type="submit" class="nav-link border-0 bg-transparent">[Đăng xuất]</a>
         </form>
       </li>
       {{else}}

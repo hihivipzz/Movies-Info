@@ -17,10 +17,10 @@ app.use(express.urlencoded({extended: true}));
 
 app.use('/user',require('./routers/user.r'))
 
+app.use('/home',require('./routers/home.r'))
+
 app.get('/',(req,res,next)=>{
-    res.render('home',{
-        isLogin: req.session.uid != undefined
-    })
+   res.redirect('/home')
 })
 
 app.listen(port, async  () => {
