@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="col-4 d-flex flex-column ">
+        <img src={{movie.img}} class="w-100">
+        <button type="Button" class="bg-success text-white p-4">Add to favourite</button>
+    </div>
+    <div class="col-8">
+        <div class="fw-bold text-uppercase fs-1">{{movie.title}}</div>
+        <div class="row">
+            <div class="col-4">
+                <div>Rating: <span class="fw-bold">{{movie.rating}}</span>/10</div>
+            </div>
+            <div class="col-4">
+                <div><span class="fw-bold">Year</span>: {{movie.year}}</div>
+            </div>
+            <div class="col-4">
+                <div><span class="fw-bold">TopRank</span>: {{movie.topRank}}</div>
+            </div>
+        </div>
+        <div>
+            <div> <span class="fw-bold">Genre</span>:
+                {{#each genre}}
+                {{genre}}
+                {{/each}}
+            </div>
+        </div>
+        <div class="mt-4">
+            <span class="fw-bold">Summary</span>:<div>{{movie.synopses}}</div>
+        </div>
+
+    </div>
+</div>
+<div class="fw-bold fs-1">Actor</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Character</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each cast}}
+        <tr>
+            
+            <td>{{name}}</td>
+            <td>{{character}}</td>
+           
+        </tr>
+         {{/each}}
+    </tbody>
+</table>
+<div class="fw-bold fs-1">Reviews</div>
+<div class="row">
+    <div class="mb-2 p-5 pt-2" v-for="review in reviews">
+        <div class="fw-bold">Username: {{review.username}}</div>
+        <div class="fw-bold">Date: {{review.date}} </div>
+        <div class="fw-italic border border-white p-2">{{review.content}}</div>
+        <div> </div>
+    </div>
+</div>
