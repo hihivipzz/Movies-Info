@@ -15,6 +15,14 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
+app.use('/user',require('./routers/user.r'))
+
+app.get('/',(req,res,next)=>{
+    res.render('home',{
+        isLogin: req.session.uid != undefined
+    })
+})
+
 app.listen(port, async  () => {
     await importJSON.importCast();
     importJSON.importMovie();

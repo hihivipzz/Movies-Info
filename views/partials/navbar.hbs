@@ -1,0 +1,29 @@
+<nav class="navbar bg-light">
+  <div class="container-fluid ">
+    <a class="navbar-brand " href="/">Home</a>
+
+    <form class="d-flex" role="search" method="get" action="/search">
+      <input class="form-control me-2" type="search" placeholder="{{str}}" aria-label="Search" name="str">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+
+    <ul class="navbar-nav d-flex flex-row justify-content-center">
+      {{#if isLogin}}
+
+      <li class="nav-item p-2">
+        <form method="post" action="/user/logout" class="inline">
+          <button type="submit" class="nav-link border-0 bg-transparent">Đăng xuất</a>
+        </form>
+      </li>
+      {{else}}
+      <li class="nav-item p-2">
+        <a class="nav-link" href="/user/login">Đăng nhập</a>
+      </li>
+      <li class="nav-item p-2">
+        <a class="nav-link" href="/user/regist">Đăng ký</a>
+      </li>
+
+      {{/if}}
+    </ul>
+  </div>
+</nav>
