@@ -1,4 +1,4 @@
-const db = require('./database');
+const db = require('../config/database');
 const fs = require('fs')
 const pathDbCast = './db/casts.json'
 const pathDbMovie = './db/movies.json'

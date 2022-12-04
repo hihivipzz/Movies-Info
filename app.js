@@ -1,5 +1,5 @@
 const express= require('express');
-const importJSON = require('./config/importJSON');
+const importJSON = require('./utils/importJSON');
 
 
 const app = express();
