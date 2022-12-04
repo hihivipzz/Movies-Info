@@ -6,9 +6,9 @@ const app = express();
 const port = 20480;
 
 //cấu hình handlebars
-require('./config/hbs')(app);
+require('./configs/hbs')(app);
 //cấu hình session
-require('./config/session')(app);
+require('./configs/session')(app);
 //cấu hình express
 app.use(express.static(__dirname + '/public'));
 //Parse dữ liệu

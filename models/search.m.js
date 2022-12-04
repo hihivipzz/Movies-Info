@@ -1,5 +1,5 @@
-const { result } = require('../config/database');
-const db = require('../config/database')
+const { result } = require('../configs/database');
+const db = require('../configs/database')
 
 module.exports = {
     findMovieByName : async(name,skip,take)=>{
