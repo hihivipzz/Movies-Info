@@ -23,6 +23,8 @@ app.use('/search',require('./routers/search.r'))
 
 app.use('/movie',require('./routers/movies.r'))
 
+app.use('/cast',require('./routers/cast.r'))
+
 app.get('/',(req,res,next)=>{
    res.redirect('/home')
 })
