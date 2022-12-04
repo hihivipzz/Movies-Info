@@ -40,20 +40,53 @@
     <tbody>
         {{#each cast}}
         <tr>
-            
+
             <td>{{name}}</td>
             <td>{{character}}</td>
-           
+
         </tr>
-         {{/each}}
+        {{/each}}
     </tbody>
 </table>
 <div class="fw-bold fs-1">Reviews</div>
-<div class="row">
-    <div class="mb-2 p-5 pt-2" v-for="review in reviews">
-        <div class="fw-bold">Username: {{review.username}}</div>
-        <div class="fw-bold">Date: {{review.date}} </div>
-        <div class="fw-italic border border-white p-2">{{review.content}}</div>
-        <div> </div>
+<div class="row review">
+    
+</div>
+<div class="row justify-content-center">
+    <div class="col-auto">
+        <ul class="pagination">
+        </ul>
     </div>
 </div>
+
+<script>
+
+
+    for (let i = 1; i <= {{ totalPage }}; i++) {
+        $('.pagination').append(`<li class="page-item" id="page${i}"><a class="page-link" ">${i}</a></li>`)
+
+        $(`#page${i}`).click((e) => {
+            e.preventDefault();
+            fetch(`/movie/review/?id={{movie.id}}&page=${i}`).then((response) => response.json()).then((data) => {
+                 $('.review').empty()
+                data.forEach(review => {
+                    var txt = `<div class="mb-2 p-5 pt-2" >
+                    <div class="fw-bold">Author: ${review.author}</div>
+                    <div class="fw-bold">Rating: ${review.authorRating} </div>
+                    <div class="fw-italic border border-white p-2">${review.reviewText}</div>
+                    <div> </div>
+                    </div>
+                    <hr>`
+                    
+                   
+                    $('.review').append(txt)
+                })
+            })
+            $(".pagination>li.active").removeClass("active");
+            $(`#page${i}`).addClass('active')
+        })
+    }
+
+
+
+</script>

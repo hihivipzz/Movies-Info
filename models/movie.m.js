@@ -17,8 +17,13 @@ module.exports = {
         return result;
     },
 
-    readReviews: async(id)=>{
-        const result = await db.any(`select * from "Reviews" where "id_movie"=$1`,[id]);
+    readReviews: async(id,skip,take)=>{
+        const result = await db.any(`select * from "Reviews" where "id_movie"=$1 offset $2 ROWS FETCH NEXT $3 ROWS ONLY`,[id,skip,take]);
+        return result;
+    },
+
+    countReviews: async (id)=>{
+        const result = await db.one(`select count(*) from "Reviews" where "id_movie"=$1`,[id])
         return result;
     }
 }
