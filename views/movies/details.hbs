@@ -26,14 +26,15 @@
         <div class="mt-4">
             <div><span class="fw-bold">Summary</span>:</div>
 
-            <div id="#summary">
+            <div id="#summary" class="" style="overflow-y: scroll; max-height:400px">
                 {{movie.synopses}}
             </div>
         </div>
 
     </div>
 </div>
-<div class="fw-bold fs-1">Actor</div>
+<div class="fw-bold fs-1 p-4">Actor</div>
+<div style="overflow: scroll; max-height:400px">
 <table class="table">
     <thead>
         <tr>
@@ -41,17 +42,16 @@
             <th scope="col">Character</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody  style="overflow: auto; max-height: 100px">
         {{#each cast}}
         <tr>
-
             <td><a href="/cast/{{id}}">{{name}}</a></td>
             <td>{{character}}</td>
-
         </tr>
         {{/each}}
     </tbody>
 </table>
+</div>
 <div class="fw-bold fs-1">Reviews</div>
 <div class="row review">
 
