@@ -11,6 +11,7 @@ exports.getCast = async(req,res,next)=>{
             cast.gender="female"
         }
         res.render('cast/detail',{
+            isLogin: req.session.uid != undefined,
             cast,nicknames,movies
         })
     }catch(e){

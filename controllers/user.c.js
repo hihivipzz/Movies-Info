@@ -66,3 +66,48 @@ exports.postLogout = async(req,res,next) =>{
         next(e)
     }
 }
+
+exports.getFavourite = async(req,res,next)=>{
+    try{
+        const movies = await userM.readFavouriteMovie(req.session.uid)
+        console.log(movies)
+        res.render('user/favourite',{
+            isLogin: req.session.uid != undefined,
+            movies
+        })
+    }catch(e){
+        next(e);
+    }
+}
+
+exports.postFavourite = async(req,res,next)=>{
+    try{
+        await userM.addFavouriteMovie(req.session.uid,req.body.id)
+        res.send('success')
+    }catch(e){
+        next(e);
+    }
+}
+
+exports.daleteFavourite = async(req,res,next)=>{
+    try{
+        await userM.removeFavouriteMovie(req.session.uid,req.body.id)
+        res.send('success')
+    }catch(e){
+        next(e);
+    }
+}
+
+exports.checkFavourite = async(req,res,next)=>{
+    try{
+        const result = await userM.isFavourite(req.session.uid,req.query.mId);
+        
+        var check = false;
+        if(result.length!=0){
+            check = true;
+        }
+        res.send(check)
+    }catch(e){
+        next(e);
+    }
+}

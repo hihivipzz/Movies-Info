@@ -18,5 +18,43 @@ module.exports = {
         }catch(e){
             throw(e);
         }
+    },
+
+    addFavouriteMovie: async(uId,mId)=>{
+        try{
+            db.none('Insert into "Favourite Movies"("idUser","idMovie") VALUES ($1,$2)',[uId,mId])
+        }catch(e){
+            throw(e)
+        }
+    },
+
+    removeFavouriteMovie: async(uId,mId)=>{
+        try{
+            db.none('DELETE from "Favourite Movies" where "idUser"=$1 and "idMovie"=$2',[uId,mId])
+        }catch(e){
+            throw(e)
+        }
+    },
+
+    readFavouriteMovie: async(uId)=>{
+        try{
+            const result= db.any('Select * from "Favourite Movies" join "Movies" on "id" = "idMovie"  where "idUser" = $1',[uId])
+
+            return result;
+        }catch(e){
+            throw(e);
+        }
+    },
+
+    isFavourite: async(uId,mId)=>{
+        try{
+            const result = db.any('Select * from "Favourite Movies" where "idUser"=$1 and "idMovie"=$2',[uId,mId]);
+
+            return result;
+        }catch(e){
+            throw(e);
+        }
     }
+
+
 }

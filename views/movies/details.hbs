@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-4 d-flex flex-column ">
         <img src={{movie.img}} class="w-100">
-        <button type="Button" class="bg-success text-white p-4">Add to favourite</button>
+        <button id="favourite" type="Button" class="btn btn-success p-4">Add to favourite</button>
     </div>
     <div class="col-8">
         <div class="fw-bold text-uppercase fs-1">{{movie.title}}</div>
@@ -58,10 +58,9 @@
         </ul>
     </div>
 </div>
-
+<!--Ajax pagination-->
 <script>
-
-
+{{#if isLogin}}
     for (let i = 1; i <= {{ totalPage }}; i++) {
         $('.pagination').append(`<li class="page-item" id="page${i}"><a class="page-link" ">${i}</a></li>`)
 
@@ -86,7 +85,75 @@
             $(`#page${i}`).addClass('active')
         })
     }
+</script>
 
+<!--favourite button-->
+<script>
+    const add = ()=>{
+        $.ajax({
+            type:"POST",
+            url: "/user/favourite",
+            data:{
+                "id" : "{{movie.id}}"
+            },
+            success: function(result){
+                alert('add sucess')
+                $("#favourite").removeClass("btn-success")
+                $( "#favourite" ).addClass( "btn-danger" );
+                $('#favourite').html("Remove from favourit list")
+            },error: function(e){
+                alert(e)
+            }
+        })
+    }
 
+    const remove = ()=>{
+        $.ajax({
+            type:"DELETE",
+            url: "/user/favourite",
+            data:{
+                "id" : "{{movie.id}}"
+            },
+            success: function(result){
+                alert('Remove sucess')
+                $("#favourite").removeClass("btn-danger")
+                 $( "#favourite" ).addClass( "btn-success" );
+                $('#favourite').html("Add to favourite")
+            },error: function(e){
+                alert(e)
+            }
+        })
+    }
 
+    $("#favourite").click((e) =>{
+        e.preventDefault();
+        $.get('/user/favourite/check/?mId={{movie.id}}',(data)=>{
+            console.log(data)
+            if(data==true){
+                remove();
+            }else{
+                add();
+            }
+        })
+    })
+
+    const init = ()=>{
+        $.get('/user/favourite/check/?mId={{movie.id}}',(data)=>{
+            console.log(data)
+            if(data==true){
+                $( "#favourite" ).addClass( "btn-danger" );
+                $('#favourite').html("Remove from favourit list")
+            }else{
+                $( "#favourite" ).addClass( "btn-success" );
+                $('#favourite').html("Add to favourite")
+            }
+        })
+    }
+
+    init();
+{{else}}
+    $("#favourite").click((e)=>{
+        window.location.href = "/user/login"
+    })
+{{/if}}
 </script>

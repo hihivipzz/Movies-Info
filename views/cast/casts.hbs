@@ -1,0 +1,19 @@
+<div class="row">
+    <table class="table ">
+        <thead>
+            <tr class="table-dark text-center">
+                <th scope="col ">Name</th>
+                <th scope="col text-center">Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each casts}}
+            <tr class="text-center">
+                <td><a href="/cast/{{id}}">{{name}}</a></td>
+                <td class="text-center"><image src={{image}} class="mx-auto" style="height: 150px;"></image></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+</div>

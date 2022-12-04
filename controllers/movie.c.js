@@ -11,6 +11,7 @@ exports.getMovie = async (req,res,next)=>{
         const totalPage = Math.ceil(totalReview.count/reviewPerPage)
     
         res.render('movies/details',{
+            isLogin: req.session.uid != undefined,
             movie,
             genre,
             cast,
