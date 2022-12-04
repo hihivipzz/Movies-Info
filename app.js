@@ -1,6 +1,6 @@
 const express= require('express');
 const importJSON = require('./config/importJSON');
-const inportJSON = require('./config/importJSON')
+
 
 const app = express();
 const port = 20480;
@@ -39,7 +39,6 @@ app.use((err,req,res,next)=>{
 })
 
 app.listen(port, async  () => {
-    await importJSON.importCast();
-    importJSON.importMovie();
+    importJSON();
     console.log('App listening on port ',port);
 });
